@@ -189,7 +189,17 @@ function finish(){
     controls.replaceChildren();
     const message=document.createElement('p');
     message.textContent='Show your teacher this screen, take a screenshot, or print it.';
-    controls.append(message,button('Print / Save as PDF',()=>window.print(),true));
+    controls.append(
+      message,
+      button('Print / Save as PDF',()=>window.print(),true),
+      button('Play again',()=>{
+        if(!window.confirm('Start a new game? This will clear your saved progress and certificate on this browser.'))return;
+        state={index:-1,selected:[],name:''};
+        save();
+        render();
+        game.querySelector('h1').focus();
+      })
+    );
   };
   if(state.name)show();
   form.addEventListener('submit',event=>{
